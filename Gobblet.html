@@ -1,0 +1,131 @@
+<!DOCTYPE html> 
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+		<meta name="description" content="Play gobblet online.">
+		<meta name="keywords" content="HTML5,Canvas,javascript,webRTC">
+		<title>Gobblet</title>
+		<link rel="stylesheet" type="text/css" href="gobblet.css">
+	</head>
+	<body>
+		<div id="openModal" class="modalDialog" hidden>
+			<div id="popup">
+				<a href="#" title="Close" class="close" id="aClose">X</a>
+				<a href="#" title="English" class="language" id="aEn">en</a>
+				<a href="#" title="Nederlands" class="language" id="aNl">nl</a>
+				<div id="divEn">
+					<h1>Gobblet manual</h1>
+					<h2>Goal</h2>
+					<p>Align 4 pawns on one row horizontally, vertically or diagonally. (All four visible)</p>
+					<h2>Rules</h2>
+					<p>Move a pawn of the stack on the board, or from one tile towards <u>another</u> tile. The tile must be unoccupied or the selected pawn must be greater than the one standing there.</p>
+					<p>Once a pawn is touched it has to be moved.</p>
+					<p>If your pawn is underneath a bigger one it can't be moved and will not be taken into account to win.</p>
+					<h2>Controls</h2>
+					<p>Pawns can be moved be click and drag, the shade helps to position it on the right tile.</p>
+					<p>If a small pawn is behind a bigger one, the sliders on the bottom and left side can help to view it.</p>
+					<p>Scrolling/zooming makes the board larger or smaller.</p>
+					<h2>Buttons</h2>
+					<p>Start: To start the game.</p>
+					<p>View: View the last played game.</p>
+					<p>Reset: Clear/Reset the score for that difficulty.</p>
+					<p>Help: View this page.</p>
+				</div>
+				<div id="divNl" style="display:none;">
+					<h1>Gobblet handleiding</h1>
+					<h2>Doel</h2>
+					<p>Zet 4 pionnen op een rij horizontaal, verticaal of diagonaal. (Alle vier zichtbaar)</p>
+					<h2>Spelregels</h2>
+					<p>Verplaats een pion van de stapel op het bord, of van een tegel naar een <u>andere</u> tegel. De tegel moet onbezet zijn of de geselecteerde pion moet groter zijn dan degene die er staat.</p>
+					<p>Zodra een pion is aangeraakt, moet deze worden verplaatst.</p>
+					<p>Als een pion onder een grotere staat kan deze niet worden verplaatst en telt deze niet mee om te winnen.</p>
+					<h2>Controls</h2>
+					<p>Een pion kan worden verplaatst door te klikken en slepen, de schaduw helpt om deze te positioneren op de juiste tegel.</p>
+					<p>Als een kleinere pion achter een grotere staat, kunnen de scroll balken aan de onder- en linkerkant helpen om deze te kunnen bekijken.</p>
+					<p>Scrollen / zoomen maakt het bord groter of kleiner.</p>
+					<h2>Knoppen</h2>
+					<p>Start: Om het spel te starten.</p>
+					<p>Bekijk: Bekijk de laatste gespeelde spel.</p>
+					<p>Reset: Zet de score terug op nul voor deze moeilijkheidsgraad.</p>
+					<p>Help: Bekijk deze pagina</p>
+				</div>
+			</div>
+		</div>
+		<div class="modalDialog" id="showLocalOffer" hidden>
+			<div>
+			    <h3>Send your local offer to someone else</h3>
+			    Here's your "offer" it tells someone else how to connect to you. Send the whole thing to them, for example in an instant message or e-mail.
+				<br/>
+				<textarea id="localOffer" name="localOffer" rows="10" cols="100"></textarea>
+			    <button id="offerSentBtn">Okay, I sent it.</button>
+			</div>
+		</div>
+		<div class="modalDialog" id="showLocalAnswer" hidden>
+			<div>
+			    <h3>Send your local answer to someone else</h3>
+			    Here's your "answer" it tells someone else how to connect to you. Send the whole thing to them, for example in an instant message or e-mail.
+				<br/>
+				<textarea id="localAnswer" name="localAnswer" rows="10" cols="100"></textarea>
+			    <button id="answerSentBtn">Okay, I sent it.</button>
+			</div>
+		</div>
+		<div class="modalDialog" id="getRemoteOffer" hidden>
+			<div>
+			    <h3>Paste the "offer" you received</h3>
+			    The person calling, will send you an "offer". Paste it here.
+				<textarea id="remoteOffer" name="remoteOffer" rows="10" cols="100"></textarea>
+			    <button id="offerRecdBtn">Okay, I pasted it.</button>
+			</div>
+		</div>
+		<div class="modalDialog" id="getRemoteAnswer" hidden>
+			<div>
+			    <h3>Paste the "answer" you received</h3>
+			    Now paste in the "answer" that was sent back to you.
+				<br/>
+				<textarea id="remoteAnswer" name="remoteAnswer" rows="10" cols="100"></textarea>
+				<button id="answerRecdBtn">Okay, I pasted it.</button>
+			</div>
+		</div>
+		<div class="modalDialog" id="waitForConnection" hidden>
+			<div>
+			    <h3>Waiting for connection</h3>
+			    This dialog will disappear when a connection is made.
+			</div>
+		</div>
+		<div class="modalDialog" id="createOrJoin" hidden>
+			<div>
+				<a href="#" onclick="document.getElementById('createOrJoin').setAttribute('hidden', true); return false;" title="Close" class="close" id="hangup">X</a>
+				<h3 id="myModalLabel">Call someone or accept a call?</h3>
+				<h6>Only firefox and chrome are supported!</h6>
+				<input type="radio" name="LAN" value="WAN" onclick="webRTCConfig(this.value)" checked />Internet&nbsp;
+				<input type="radio" name="LAN" value="LAN" onclick="webRTCConfig(this.value)" />Local network<br />
+				<button id="createBtn">Call someone</button>
+			    <button id="joinBtn">Accept call</button>
+			</div>
+		</div>
+		<div id="welcome">
+			<canvas id="images" width="1200" height="900"></canvas>
+		</div>
+		<div id="game" style="display:none;">
+			<canvas id="canvas" width="1200" height="900"></canvas>
+		</div>
+		<script src="webRTC.js" type="text/javascript"></script>
+		<script src="Publisher.js" type="text/javascript"></script>
+		<script src="Images.js" type="text/javascript"></script>
+		<script src="Matrix.js" type="text/javascript"></script>
+		<script src="Slider.js" type="text/javascript"></script>
+		<script src="Shape3D.js" type="text/javascript"></script>
+		<script src="Board3D.js" type="text/javascript"></script>
+		<script src="Shape.js" type="text/javascript"></script>
+		<script src="Cube.js" type="text/javascript"></script>
+		<script src="Pawn.js" type="text/javascript"></script>
+		<script src="Board.js" type="text/javascript"></script>
+		<script src="Shadow.js" type="text/javascript"></script>
+		<script src="AI.js" type="text/javascript"></script>
+		<script src="State.js" type="text/javascript"></script>
+		<script src="Gobblet.js" type="text/javascript"></script>
+		
+		<script src="Tests.js" type="text/javascript"></script>
+	</body>
+</html>

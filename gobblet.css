@@ -1,0 +1,83 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+html, body {
+	height: 100%;
+	width: 100%;
+}
+canvas {
+	display: block;
+}
+div#welcome {
+	background: -webkit-linear-gradient(bottom, #2c3e40, #74c8fb);
+	background: linear-gradient(to bottom, #2c3e40, #74c8fb);
+}
+div#game {
+	background: -webkit-linear-gradient(bottom, #54c8db 55%, #3c4e60);
+	background: linear-gradient(to bottom, #54c8db 55%, #3c4e60);
+}
+.modalDialog {
+	position: fixed;
+	font-family: Arial, Helvetica, sans-serif;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background: rgba(0,0,0,0.8);
+	z-index: 99999;
+	-webkit-transition: opacity 400ms ease-in;
+	-moz-transition: opacity 400ms ease-in;
+	transition: opacity 400ms ease-in;
+	/*pointer-events: none;//auto;*/
+}
+.modalDialog > div {
+	width: 400px;
+	max-width: 100%;
+	position: relative;
+	margin: 10% auto;
+	padding: 5px 20px 13px 20px;
+	border-radius: 10px;
+	background: #fff;
+	background: -moz-linear-gradient(#fff, #999);
+	background: -webkit-linear-gradient(#fff, #999);
+	background: -o-linear-gradient(#fff, #999);
+	text-align: center;
+}
+div#popup {
+	text-align: left;
+}
+.modalDialog textarea {
+    width: 100%;
+}
+button {
+	background-color: darkgreen;
+    color: white;
+    margin: 5px;
+    padding: 3px;
+}
+.close {
+	background: #606061;
+	color: #FFFFFF;
+	line-height: 25px;
+	position: absolute;
+	right: -12px;
+	text-align: center;
+	top: -10px;
+	width: 24px;
+	text-decoration: none;
+	font-weight: bold;
+	-webkit-border-radius: 12px;
+	-moz-border-radius: 12px;
+	border-radius: 12px;
+	-moz-box-shadow: 1px 1px 3px #000;
+	-webkit-box-shadow: 1px 1px 3px #000;
+	box-shadow: 1px 1px 3px #000;
+}
+.close:hover { background: #00d9ff; }
+.language {
+	color: #000000;
+	margin-left: 2px;
+}
+.language:hover { background: #00d9ff; }
+[hidden] { display:none; }
